@@ -1,0 +1,36 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android Studio
+gradlew
+gradlew.bat
+build/
+app/google-services.json
+.idea/
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*~
+*.swp
+*.ipr
+*.iws
+
+# backup files
+*.bak
+
+# gitignore
+gradle/wrapper/gradle-wrapper.properties
