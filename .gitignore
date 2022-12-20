@@ -19,6 +19,7 @@ gradlew
 gradlew.bat
 build/
 app/google-services.json
+gradle.properties
 .idea/
 /*/local.properties
 /*/out
