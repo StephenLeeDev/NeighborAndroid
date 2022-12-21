@@ -1,4 +1,4 @@
-package com.stephenleedev.neighborandroid.domain.model
+package com.stephenleedev.neighborandroid.domain.model.auth
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SocialAuthRequest(
     @SerializedName("socialType")
-    val socialType: String = "kakao", // TODO : Create socialType enum class and refactor
+    val socialType: String,
     @SerializedName("socialToken")
     val socialToken: String,
 )

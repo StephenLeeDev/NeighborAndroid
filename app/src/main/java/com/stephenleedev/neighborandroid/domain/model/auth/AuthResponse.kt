@@ -1,4 +1,4 @@
-package com.stephenleedev.neighborandroid.domain.model
+package com.stephenleedev.neighborandroid.domain.model.auth
 
 /**
  * Written by StephenLeeDev on 2022/12/20.
