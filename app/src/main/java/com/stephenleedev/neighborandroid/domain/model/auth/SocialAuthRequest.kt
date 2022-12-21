@@ -12,3 +12,9 @@ data class SocialAuthRequest(
     @SerializedName("socialToken")
     val socialToken: String,
 )
+
+enum class SocialType(val type: String) {
+    GOOGLE("google"),
+    FACEBOOK("facebook"),
+    KAKAO("kakao"),
+}
