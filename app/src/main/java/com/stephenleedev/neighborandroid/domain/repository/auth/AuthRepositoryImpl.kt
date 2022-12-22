@@ -34,8 +34,8 @@ class AuthRepositoryImpl(
         prefUtil.setRefreshToken(refreshToken)
     }
 
-    override suspend fun getIsSocialAuthExist(body: SocialAuthRequest): Flow<ResponseBody> {
-        return flow { emit(authService.getIsSocialAuthExist(socialType = body.socialType, socialToken = body.socialToken)) }.flowOn(Dispatchers.IO)
+    override suspend fun getIsSocialAccountExist(body: SocialAuthRequest): Flow<ResponseBody> {
+        return flow { emit(authService.getIsSocialAccountExist(socialType = body.socialType, socialToken = body.socialToken)) }.flowOn(Dispatchers.IO)
     }
 
 }

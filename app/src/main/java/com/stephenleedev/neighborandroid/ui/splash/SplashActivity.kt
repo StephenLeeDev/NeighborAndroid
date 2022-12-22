@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.stephenleedev.neighborandroid.databinding.ActivitySplashBinding
 import com.stephenleedev.neighborandroid.domain.model.splash.SplashState
-import com.stephenleedev.neighborandroid.ui.auth.SignInActivity
+import com.stephenleedev.neighborandroid.ui.auth.signin.SignInActivity
 import com.stephenleedev.neighborandroid.ui.main.MainActivity
 import com.stephenleedev.neighborandroid.viewmodel.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint

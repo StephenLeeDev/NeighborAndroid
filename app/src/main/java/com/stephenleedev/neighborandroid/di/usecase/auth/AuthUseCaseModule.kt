@@ -1,7 +1,7 @@
 package com.stephenleedev.neighborandroid.di.usecase.auth
 
 import com.stephenleedev.neighborandroid.domain.repository.auth.AuthRepository
-import com.stephenleedev.neighborandroid.domain.usecase.auth.GetIsSocialAuthExistUseCase
+import com.stephenleedev.neighborandroid.domain.usecase.auth.GetIsSocialAccountExistUseCase
 import com.stephenleedev.neighborandroid.domain.usecase.auth.GetUserAccessTokenUseCase
 import dagger.Module
 import dagger.Provides
@@ -25,8 +25,8 @@ object AuthUseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetIsSocialAuthExistUseCase(authRepository: AuthRepository): GetIsSocialAuthExistUseCase {
-        return GetIsSocialAuthExistUseCase(authRepository)
+    fun provideGetIsSocialAuthExistUseCase(authRepository: AuthRepository): GetIsSocialAccountExistUseCase {
+        return GetIsSocialAccountExistUseCase(authRepository)
     }
 
 }

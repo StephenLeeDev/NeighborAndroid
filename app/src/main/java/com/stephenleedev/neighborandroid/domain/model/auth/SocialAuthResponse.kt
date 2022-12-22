@@ -6,7 +6,7 @@ package com.stephenleedev.neighborandroid.domain.model.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class AuthResponse(
+data class SocialAuthResponse(
     @SerializedName("accessToken")
     val accessToken: String,
     @SerializedName("refreshToken")

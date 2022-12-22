@@ -13,5 +13,5 @@ interface AuthRepository {
     suspend fun getRefreshToken(): String
     suspend fun setUserAccessToken(userAccessToken: String)
     suspend fun setRefreshToken(refreshToken: String)
-    suspend fun getIsSocialAuthExist(body: SocialAuthRequest): Flow<ResponseBody>
+    suspend fun getIsSocialAccountExist(body: SocialAuthRequest): Flow<ResponseBody>
 }
