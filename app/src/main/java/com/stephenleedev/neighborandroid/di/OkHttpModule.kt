@@ -1,4 +1,4 @@
-package com.stephenleedev.neighborandroid.remote.di
+package com.stephenleedev.neighborandroid.di
 
 import com.stephenleedev.neighborandroid.BuildConfig
 import com.stephenleedev.neighborandroid.domain.util.PrefUtil

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">NeighborAndroid</string>
+    <string name="app_name">MyNeighbor</string>
+    <string name="app_name_splash">My\nNeighbor</string>
 </resources>
