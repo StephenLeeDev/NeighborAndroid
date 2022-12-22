@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".NeighborApp"
         android:allowBackup="true"
@@ -14,11 +16,21 @@
         android:theme="@style/Theme.NeighborAndroid"
         tools:targetApi="33">
         <activity
-            android:name=".ui.auth.SignInActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".ui.auth.signup.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.signin.SignInActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="${kakao_api_key}" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.splash.SplashActivity"
