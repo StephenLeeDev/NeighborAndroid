@@ -10,7 +10,10 @@ import retrofit2.http.Query
 
 interface AuthService {
 
-    // 소셜 회원가입 유무 판별
+    /**
+     * /auth/social
+     * 소셜 회원가입 유무 판별
+     */
     @GET("/v3/46cb54e0-6315-431f-81f6-be0344334331")
     suspend fun getIsSocialAccountExist(
         @Query("socialType") socialType: String,

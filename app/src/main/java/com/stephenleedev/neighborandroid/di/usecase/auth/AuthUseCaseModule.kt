@@ -25,7 +25,7 @@ object AuthUseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetIsSocialAuthExistUseCase(authRepository: AuthRepository): GetIsSocialAccountExistUseCase {
+    fun provideGetIsSocialAccountExistUseCase(authRepository: AuthRepository): GetIsSocialAccountExistUseCase {
         return GetIsSocialAccountExistUseCase(authRepository)
     }
 
