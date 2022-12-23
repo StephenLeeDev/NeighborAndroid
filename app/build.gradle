@@ -24,11 +24,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "SERVER_URL", SERVER_URL)
+            buildConfigField("String", "KAKAO_API_KEY", KAKAO_API_RELEASE)
+
+            manifestPlaceholders = [applicationName: "마이이웃", kakao_api_key: KAKAO_API_RELEASE]
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "SERVER_URL", SERVER_URL)
+            buildConfigField("String", "KAKAO_API_KEY", KAKAO_API_RELEASE)
+
+            manifestPlaceholders = [applicationName: "마이이웃 DEV", kakao_api_key: KAKAO_API_DEBUG]
         }
     }
     compileOptions {
@@ -81,5 +87,8 @@ dependencies {
 
     // Joda Time
     implementation 'joda-time:joda-time:2.10.14'
+
+    // 카카오 로그인
+    implementation "com.kakao.sdk:v2-user:2.11.0"
 
 }
