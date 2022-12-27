@@ -12,5 +12,32 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:buttonStyle">@style/Theme.NeighborAndroid.ButtonStyle</item>
     </style>
+
+    <style name="Theme.NeighborAndroid.WhiteStatusBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Customize your theme here. -->
+        <item name="android:buttonStyle">@style/Theme.NeighborAndroid.ButtonStyle</item>
+    </style>
+
+    <style name="Theme.NeighborAndroid.ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/base_button_background</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:minHeight">0sp</item>
+    </style>
+
 </resources>

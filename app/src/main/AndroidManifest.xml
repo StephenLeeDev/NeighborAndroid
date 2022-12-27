@@ -17,7 +17,8 @@
         tools:targetApi="33">
         <activity
             android:name=".ui.auth.signup.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.NeighborAndroid.WhiteStatusBar" />
         <activity
             android:name=".ui.auth.signin.SignInActivity"
             android:exported="true">
