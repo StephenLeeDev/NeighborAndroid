@@ -1,4 +1,8 @@
 <resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="app_name">MyNeighbor</string>
     <string name="app_name_splash">My\nNeighbor</string>
 
@@ -6,4 +10,11 @@
     <string name="term_of_service"><u>서비스 이용약관</u></string>
     <string name="privacy_policy"><u>개인정보 처리방침</u></string>
     <string name="i_agree_to_the_terms_and_conditions_above">위의 이용약관 확인 후 동의합니다.</string>
+
+    <string name="previous">이전</string>
+    <string name="next">다음</string>
+
+    <string name="please_select_apartment_that_you_are_living">거주 중이신 아파트를 선택해주세요</string>
+    <string name="please_proceed_with_membership_registration">환영합니다!\n회원가입을 진행해주세요</string>
+
 </resources>
