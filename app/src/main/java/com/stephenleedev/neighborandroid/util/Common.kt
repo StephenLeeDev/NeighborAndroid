@@ -8,5 +8,5 @@ import com.stephenleedev.neighborandroid.BuildConfig
  */
 
 fun logFunctions(msg: String) {
-    if (BuildConfig.DEBUG) Log.e("debug Logs", msg)
+    if (BuildConfig.DEBUG) Log.e("logFunctions", msg)
 }
