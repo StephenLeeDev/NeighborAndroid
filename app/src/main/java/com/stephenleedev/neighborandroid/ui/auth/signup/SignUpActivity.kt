@@ -34,16 +34,15 @@ class SignUpActivity : AppCompatActivity() {
         binding.viewPager.apply {
             adapter =
                 viewPagerAdapter.apply {
+                    addFragment(SignUpGuideFragment())
                     addFragment(SignUpApartmentFragment())
-                    addFragment(SignUpPurposeFragment())
                     addFragment(SignUpProfileFragment())
 
                     registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                         override fun onPageSelected(position: Int) {
                             super.onPageSelected(position)
 
-                            // TODO : Create RegisterViewModel
-//                            registerViewModel.setCurrentPage(page = position + 1)
+                            registerViewModel.setCurrentPage(page = position + 1)
                         }
                     })
                 }
@@ -60,7 +59,7 @@ class SignUpActivity : AppCompatActivity() {
 
                     // Go back to the previous
                     if (currentPage > 0) {
-                        viewPager.setCurrentItem(currentPage - 1, false)
+                        viewPager.setCurrentItem(currentPage - 1, true)
                     }
                 }
             }
@@ -71,12 +70,12 @@ class SignUpActivity : AppCompatActivity() {
 
                     // Go to the next page
                     if (currentPage < SIGNUP_TOTAL_FRAGMENT_COUNT) {
-                        viewPager.setCurrentItem(currentPage + 1, false)
+                        viewPager.setCurrentItem(currentPage + 1, true)
                     }
 
                     // Register user
                     else if (currentPage == SIGNUP_TOTAL_FRAGMENT_COUNT) {
-
+                        // TODO : Register user POST API
                     }
                 }
             }
@@ -84,7 +83,32 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
+        registerViewModel.apply {
 
+            currentPage.observe(this@SignUpActivity) { page ->
+
+                binding.buttonLayout.apply {
+
+                    // Previous button is only invisible on first page
+                    buttonPrevious.isVisible = page > 1
+
+                    when (page) {
+                        1 -> {
+                            buttonNext.text = getString(R.string.get_started_signup)
+                        }
+                        2 -> {
+                            buttonNext.text = getString(R.string.next)
+                        }
+                        3 -> {
+                            buttonNext.text = getString(R.string.complete)
+                        }
+                    }
+                }
+
+                checkIsValid()
+            }
+
+        }
     }
 
     companion object {
