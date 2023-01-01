@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.stephenleedev.neighborandroid.databinding.FragmentSignUpApartmentBinding
-import com.stephenleedev.neighborandroid.domain.`interface`.ClickListener
+import com.stephenleedev.neighborandroid.domain.`interface`.ClickWithPositionListener
 import com.stephenleedev.neighborandroid.domain.model.apartment.ApartmentModel
 import com.stephenleedev.neighborandroid.domain.model.apartment.ApartmentState
 import com.stephenleedev.neighborandroid.ui.auth.signup.apartment.adapter.ApartSelectionAdapter
-import com.stephenleedev.neighborandroid.util.logFunctions
 import com.stephenleedev.neighborandroid.util.recyclerview.VerticalListDecoration
-import com.stephenleedev.neighborandroid.viewmodel.apartment.ApartmentViewModel
+import com.stephenleedev.neighborandroid.viewmodel.auth.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +20,7 @@ class SignUpApartmentFragment : Fragment() {
 
     private val binding by lazy { FragmentSignUpApartmentBinding.inflate(layoutInflater) }
 
-    private val apartmentViewModel: ApartmentViewModel by activityViewModels()
+    private val registerViewModel: RegisterViewModel by activityViewModels()
 
     private lateinit var apartmentSelectionAdapter: ApartSelectionAdapter
 
@@ -44,20 +43,18 @@ class SignUpApartmentFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        apartmentSelectionAdapter = ApartSelectionAdapter(object : ClickListener<ApartmentModel> {
-            override fun onClick(t: ApartmentModel) {
-                val copyList = apartmentSelectionAdapter.currentList.toMutableList()
-
-                copyList.forEach { apart ->
+        apartmentSelectionAdapter = ApartSelectionAdapter(object : ClickWithPositionListener<ApartmentModel, Int> {
+            override fun onClick(t: ApartmentModel, position: Int) {
+                apartmentSelectionAdapter.currentList.forEach { apart ->
                     apart.isSelected = apart.id == t.id
                 }
 
-                apartmentViewModel.apply {
+                registerViewModel.apply {
                     // Update new apartment list state
-                    setApartmentState(ApartmentState.Success(copyList))
+                    setApartmentState(ApartmentState.Success(apartmentSelectionAdapter.currentList))
 
                     // Update new selected apartment id state
-                    setSelectedApartmentId(copyList.find { it.isSelected }?.id ?: -1)
+                    setSelectedApartmentId(apartmentSelectionAdapter.currentList[position].id)
                 }
             }
         })
@@ -68,14 +65,13 @@ class SignUpApartmentFragment : Fragment() {
     }
 
     private fun initObservers() {
-        apartmentViewModel.apply {
+        registerViewModel.apply {
             getAllApartmentList()
             apartmentState.observe(viewLifecycleOwner) { state ->
                 when (state) {
                     is ApartmentState.Success -> {
                         val copyList = state.list.toMutableList()
                         apartmentSelectionAdapter.submitList(copyList)
-                        logFunctions("apartmentList : ${copyList}")
 
                         apartmentSelectionAdapter.notifyDataSetChanged()
                     }
