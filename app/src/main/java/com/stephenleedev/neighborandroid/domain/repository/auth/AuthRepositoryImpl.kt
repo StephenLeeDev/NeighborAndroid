@@ -1,6 +1,7 @@
 package com.stephenleedev.neighborandroid.domain.repository.auth
 
 import com.stephenleedev.neighborandroid.domain.model.auth.SocialAuthRequest
+import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
 import com.stephenleedev.neighborandroid.domain.util.PrefUtil
 import com.stephenleedev.neighborandroid.remote.service.auth.AuthService
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +37,10 @@ class AuthRepositoryImpl(
 
     override suspend fun getIsSocialAccountExist(body: SocialAuthRequest): Flow<ResponseBody> {
         return flow { emit(authService.getIsSocialAccountExist(socialType = body.socialType, socialToken = body.socialToken)) }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getSignUpPurposeList(): Flow<List<SignUpPurposeModel>> {
+        return flow { emit(authService.getSignUpPurposeList()) }.flowOn(Dispatchers.IO)
     }
 
 }

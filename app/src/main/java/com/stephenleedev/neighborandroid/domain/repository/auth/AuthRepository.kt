@@ -1,6 +1,7 @@
 package com.stephenleedev.neighborandroid.domain.repository.auth
 
 import com.stephenleedev.neighborandroid.domain.model.auth.SocialAuthRequest
+import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
 import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 
@@ -14,4 +15,5 @@ interface AuthRepository {
     suspend fun setUserAccessToken(userAccessToken: String)
     suspend fun setRefreshToken(refreshToken: String)
     suspend fun getIsSocialAccountExist(body: SocialAuthRequest): Flow<ResponseBody>
+    suspend fun getSignUpPurposeList(): Flow<List<SignUpPurposeModel>>
 }
