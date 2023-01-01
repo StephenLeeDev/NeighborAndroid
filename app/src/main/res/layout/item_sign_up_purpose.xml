@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_background_radius_5"
+        android:backgroundTint="@{model.isSelected ? @color/colorPrimary : @color/gray_f6f6f6}"
+        android:padding="8dp"
+        tools:backgroundTint="@color/gray_f6f6f6">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lineSpacingExtra="5sp"
+            android:maxLines="1"
+            android:text="@{model.name}"
+            android:textColor="@{model.isSelected ? @color/white : @color/gray_c6c6c6}"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:text="가입목적"
+            tools:textColor="@color/gray_c6c6c6" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
