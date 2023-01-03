@@ -1,4 +1,4 @@
-package com.stephenleedev.neighborandroid.domain.model.auth.register
+package com.stephenleedev.neighborandroid.domain.model.auth.purpose
 
 import com.google.gson.annotations.SerializedName
 
