@@ -8,16 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.stephenleedev.neighborandroid.databinding.FragmentSignUpProfileBinding
 import com.stephenleedev.neighborandroid.domain.`interface`.ClickWithPositionListener
 import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeState
 import com.stephenleedev.neighborandroid.ui.auth.signup.SignUpActivity
 import com.stephenleedev.neighborandroid.ui.auth.signup.profile.adapter.SignUpPurposeAdapter
+import com.stephenleedev.neighborandroid.util.extension.toDp
+import com.stephenleedev.neighborandroid.util.logFunctions
+import com.stephenleedev.neighborandroid.util.permission.PermissionUtil
 import com.stephenleedev.neighborandroid.util.recyclerview.GridListDecoration
 import com.stephenleedev.neighborandroid.viewmodel.auth.register.PurposeViewModel
 import com.stephenleedev.neighborandroid.viewmodel.auth.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import gun0912.tedimagepicker.builder.TedImagePicker
 
 @AndroidEntryPoint
 class SignUpProfileFragment : Fragment() {
@@ -44,8 +52,25 @@ class SignUpProfileFragment : Fragment() {
     }
 
     private fun initViews() {
+        initThumbnailView()
         initTextInput()
         initRecyclerView()
+    }
+
+    private fun initThumbnailView() {
+        binding.thumbnailImageView.setOnClickListener {
+            PermissionUtil().checkGrantStoragePermission(
+                activity = requireActivity() as SignUpActivity,
+                positiveListener = {
+                    TedImagePicker.with(requireContext())
+                        .start { uri ->
+                            logFunctions("TedImagePicker : $uri")
+
+                            registerViewModel.setThumbnailUri(uri)
+                        }
+                }
+            )
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -76,6 +101,7 @@ class SignUpProfileFragment : Fragment() {
 
     private fun initObservers() {
         initPurposeListObservers()
+        initRegisterObserver()
     }
 
     private fun initPurposeListObservers() {
@@ -87,6 +113,24 @@ class SignUpProfileFragment : Fragment() {
                     signUpPurposeAdapter.submitList(purposeState.list)
                 }
             }
+        }
+    }
+
+    private fun initRegisterObserver() {
+        registerViewModel.apply {
+
+            thumbnailUri.observe(viewLifecycleOwner) { uri ->
+                Glide
+                    .with(requireContext())
+                    .load(uri)
+                    .transform(
+                        MultiTransformation(
+                            CenterCrop(), RoundedCorners(100.toDp)
+                        )
+                    )
+                    .into(binding.thumbnailImageView)
+            }
+
         }
     }
 

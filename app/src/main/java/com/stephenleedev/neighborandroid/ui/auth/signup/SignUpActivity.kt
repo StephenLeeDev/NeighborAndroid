@@ -1,19 +1,25 @@
 package com.stephenleedev.neighborandroid.ui.auth.signup
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
+import com.stephenleedev.neighborandroid.R
 import com.stephenleedev.neighborandroid.databinding.ActivitySignUpBinding
 import com.stephenleedev.neighborandroid.ui.auth.signup.apartment.SignUpApartmentFragment
 import com.stephenleedev.neighborandroid.ui.auth.signup.guide.SignUpGuideFragment
 import com.stephenleedev.neighborandroid.ui.auth.signup.profile.SignUpProfileFragment
 import com.stephenleedev.neighborandroid.util.viewpager.PagerFragmentStateAdapter
+import com.stephenleedev.neighborandroid.viewmodel.auth.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
+
+    private val registerViewModel: RegisterViewModel by viewModels()
 
     private val viewPagerAdapter = PagerFragmentStateAdapter(this@SignUpActivity)
 
@@ -105,6 +111,22 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
 
+                checkIsValid()
+            }
+
+            isValid.observe(this@SignUpActivity) { valid ->
+                binding.buttonLayout.buttonNext.isEnabled = valid
+            }
+
+            selectedApartmentId.observe(this@SignUpActivity) {
+                checkIsValid()
+            }
+
+            nickname.observe(this@SignUpActivity) {
+                checkIsValid()
+            }
+
+            selectedPurposeIdList.observe(this@SignUpActivity) {
                 checkIsValid()
             }
 
