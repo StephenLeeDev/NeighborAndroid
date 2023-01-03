@@ -25,4 +25,11 @@
     <string name="please_write_within_ten_characters">10자 이하로 입력해주세요</string>
     <string name="multiple_selections_are_possible">(복수선택이 가능합니다)</string>
 
+    <string name="allow_permission_warning_message">권한을 허용하지 않으시면, 기능을 사용하실 수 없습니다</string>
+    <string name="allow_permission">허용하기</string>
+    <string name="close">닫기</string>
+    <string name="profile_picture">프로필 사진</string>
+    <string name="gallery">갤러리</string>
+    <string name="camera">카메라</string>
+
 </resources>
