@@ -1,7 +1,7 @@
 package com.stephenleedev.neighborandroid.domain.repository.auth
 
 import com.stephenleedev.neighborandroid.domain.model.auth.SocialAuthRequest
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 

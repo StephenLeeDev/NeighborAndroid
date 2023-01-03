@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.stephenleedev.neighborandroid.databinding.ActivitySignUpBinding
 import com.stephenleedev.neighborandroid.ui.auth.signup.apartment.SignUpApartmentFragment
-import com.stephenleedev.neighborandroid.ui.auth.signup.perpose.SignUpPurposeFragment
+import com.stephenleedev.neighborandroid.ui.auth.signup.guide.SignUpGuideFragment
 import com.stephenleedev.neighborandroid.ui.auth.signup.profile.SignUpProfileFragment
 import com.stephenleedev.neighborandroid.util.viewpager.PagerFragmentStateAdapter
 import dagger.hilt.android.AndroidEntryPoint

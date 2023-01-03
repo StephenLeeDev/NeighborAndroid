@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.stephenleedev.neighborandroid.databinding.ItemSignUpPurposeBinding
 import com.stephenleedev.neighborandroid.domain.`interface`.ClickWithPositionListener
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 
 /**
  * Written by StephenLeeDev on 2023/01/01.

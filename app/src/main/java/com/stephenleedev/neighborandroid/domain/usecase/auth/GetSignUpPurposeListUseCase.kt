@@ -1,6 +1,6 @@
 package com.stephenleedev.neighborandroid.domain.usecase.auth
 
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import com.stephenleedev.neighborandroid.domain.repository.auth.AuthRepository
 import kotlinx.coroutines.flow.Flow
 

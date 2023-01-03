@@ -10,8 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.stephenleedev.neighborandroid.databinding.FragmentSignUpProfileBinding
 import com.stephenleedev.neighborandroid.domain.`interface`.ClickWithPositionListener
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeState
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeState
+import com.stephenleedev.neighborandroid.ui.auth.signup.SignUpActivity
 import com.stephenleedev.neighborandroid.ui.auth.signup.profile.adapter.SignUpPurposeAdapter
 import com.stephenleedev.neighborandroid.util.recyclerview.GridListDecoration
 import com.stephenleedev.neighborandroid.viewmodel.auth.register.PurposeViewModel

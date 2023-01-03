@@ -1,6 +1,6 @@
 package com.stephenleedev.neighborandroid.remote.service.auth
 
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query

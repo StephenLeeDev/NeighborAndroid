@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeState
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeState
 import com.stephenleedev.neighborandroid.domain.usecase.auth.GetSignUpPurposeListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch

@@ -1,7 +1,7 @@
 package com.stephenleedev.neighborandroid.domain.repository.auth
 
 import com.stephenleedev.neighborandroid.domain.model.auth.SocialAuthRequest
-import com.stephenleedev.neighborandroid.domain.model.auth.register.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import com.stephenleedev.neighborandroid.domain.util.PrefUtil
 import com.stephenleedev.neighborandroid.remote.service.auth.AuthService
 import kotlinx.coroutines.Dispatchers
