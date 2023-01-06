@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="fill_horizontal"
+    android:background="@drawable/base_background_radius_10"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="5sp"
+        android:textColor="@color/black_282828"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/positiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/base_background_radius_10"
+        android:backgroundTint="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:letterSpacing="-0.02"
+        android:lineSpacingExtra="5sp"
+        android:paddingVertical="11dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="Yes" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/negativeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/base_background_radius_10_outline_gray_c6c6c6"
+        android:gravity="center"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="8sp"
+        android:paddingVertical="11dp"
+        android:textColor="@color/gray_c6c6c6"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        tools:text="Cancel" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

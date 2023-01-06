@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:name=".NeighborApp"
@@ -17,7 +22,8 @@
         tools:targetApi="33">
         <activity
             android:name=".ui.auth.signup.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.NeighborAndroid.WhiteStatusBar" />
         <activity
             android:name=".ui.auth.signin.SignInActivity"
             android:exported="true">

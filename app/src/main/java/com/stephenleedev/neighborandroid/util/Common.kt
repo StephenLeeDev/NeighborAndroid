@@ -1,6 +1,9 @@
 package com.stephenleedev.neighborandroid.util
 
+import android.content.Context
+import android.content.DialogInterface
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.stephenleedev.neighborandroid.BuildConfig
 
 /**
@@ -8,5 +11,22 @@ import com.stephenleedev.neighborandroid.BuildConfig
  */
 
 fun logFunctions(msg: String) {
-    if (BuildConfig.DEBUG) Log.e("debug Logs", msg)
+    if (BuildConfig.DEBUG) Log.e("logFunctions", msg)
+}
+
+fun showListAlertDialog(
+    context: Context,
+    title: String,
+    list: Array<String>,
+    onClickListener: DialogInterface.OnClickListener,
+    isCancelable: Boolean = true
+) {
+    val builder = AlertDialog.Builder(context)
+
+    builder
+        .setTitle(title)
+        .setItems(list, onClickListener)
+        .setCancelable(isCancelable)
+
+    builder.show()
 }
