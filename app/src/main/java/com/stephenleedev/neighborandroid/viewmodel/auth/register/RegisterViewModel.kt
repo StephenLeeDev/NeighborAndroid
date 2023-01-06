@@ -7,7 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stephenleedev.neighborandroid.domain.model.apartment.ApartmentState
 import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
+import com.stephenleedev.neighborandroid.domain.model.auth.register.RegisterRequest
+import com.stephenleedev.neighborandroid.domain.model.auth.register.RegisterState
+import com.stephenleedev.neighborandroid.domain.model.user.thumbnail.UserThumbnailUpdateState
 import com.stephenleedev.neighborandroid.domain.usecase.apartment.GetAllApartmentListUseCase
+import com.stephenleedev.neighborandroid.domain.usecase.auth.PostAuthRegisterUseCase
+import com.stephenleedev.neighborandroid.domain.usecase.user.PatchUserThumbnailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -19,7 +24,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val getAllApartmentListUseCase: GetAllApartmentListUseCase
+    private val getAllApartmentListUseCase: GetAllApartmentListUseCase,
+    private val postAuthRegisterUseCase: PostAuthRegisterUseCase,
+    private val patchUserThumbnailUseCase: PatchUserThumbnailUseCase
 ) : ViewModel() {
 
     /**
@@ -134,13 +141,35 @@ class RegisterViewModel @Inject constructor(
     }
 
     /**
-     * Current page of ViewPager
+     * Post Auth Register State
      */
-    private val _thumbnailUri = MutableLiveData<Uri>()
-    val thumbnailUri = _thumbnailUri as LiveData<Uri>
+    private val _registerState = MutableLiveData<RegisterState>(RegisterState.Loading)
+    val registerState = _registerState as LiveData<RegisterState>
 
-    fun setThumbnailUri(uri: Uri) {
-        _thumbnailUri.value = uri
+    private fun setRegisterState(value: RegisterState) {
+        _registerState.value = value
+    }
+
+    fun postAuthRegister(socialType: String, socialToken: String) {
+        val apartmentId = selectedApartmentId.value ?: return
+        val name = nickname.value ?: return
+        val purposes = selectedPurposeIdList.value ?: return
+
+        viewModelScope.launch {
+            postAuthRegisterUseCase.execute(
+                body = RegisterRequest(
+                    socialType = socialType,
+                    socialToken = socialToken,
+                    apartmentId = apartmentId,
+                    nickname = name,
+                    purposeIds = purposes
+                )
+            )
+                .catch { setRegisterState(RegisterState.Fail) }
+                .collect { response ->
+                    setRegisterState(RegisterState.Success(response))
+                }
+        }
     }
 
 }

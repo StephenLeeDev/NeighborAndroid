@@ -1,5 +1,6 @@
 package com.stephenleedev.neighborandroid.ui.auth.signup
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +8,15 @@ import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.stephenleedev.neighborandroid.R
 import com.stephenleedev.neighborandroid.databinding.ActivitySignUpBinding
+import com.stephenleedev.neighborandroid.domain.model.auth.register.RegisterState
+import com.stephenleedev.neighborandroid.domain.model.user.thumbnail.UserThumbnailUpdateState
+import com.stephenleedev.neighborandroid.ui.auth.signin.SignInActivity.Companion.SOCIAL_TOKEN
+import com.stephenleedev.neighborandroid.ui.auth.signin.SignInActivity.Companion.SOCIAL_TYPE
 import com.stephenleedev.neighborandroid.ui.auth.signup.apartment.SignUpApartmentFragment
 import com.stephenleedev.neighborandroid.ui.auth.signup.guide.SignUpGuideFragment
 import com.stephenleedev.neighborandroid.ui.auth.signup.profile.SignUpProfileFragment
+import com.stephenleedev.neighborandroid.ui.main.MainActivity
+import com.stephenleedev.neighborandroid.util.file.FileUtil
 import com.stephenleedev.neighborandroid.util.viewpager.PagerFragmentStateAdapter
 import com.stephenleedev.neighborandroid.viewmodel.auth.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +29,9 @@ class SignUpActivity : AppCompatActivity() {
     private val registerViewModel: RegisterViewModel by viewModels()
 
     private val viewPagerAdapter = PagerFragmentStateAdapter(this@SignUpActivity)
+
+    private val socialType by lazy { intent.getStringExtra(SOCIAL_TYPE) }
+    private val socialToken by lazy { intent.getStringExtra(SOCIAL_TOKEN) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,16 +82,19 @@ class SignUpActivity : AppCompatActivity() {
 
             buttonLayout.buttonNext.apply {
                 setOnClickListener {
-                    val currentPage = viewPager.currentItem
+                    val currentPage = viewPager.currentItem + 1
 
                     // Go to the next page
                     if (currentPage < SIGNUP_TOTAL_FRAGMENT_COUNT) {
-                        viewPager.setCurrentItem(currentPage + 1, true)
+                        viewPager.setCurrentItem(currentPage, true)
                     }
 
                     // Register user
                     else if (currentPage == SIGNUP_TOTAL_FRAGMENT_COUNT) {
-                        // TODO : Register user POST API
+                        registerViewModel.postAuthRegister(
+                            socialType = socialType ?: return@setOnClickListener,
+                            socialToken = socialToken ?: return@setOnClickListener
+                        )
                     }
                 }
             }
@@ -130,7 +143,30 @@ class SignUpActivity : AppCompatActivity() {
                 checkIsValid()
             }
 
+            registerState.observe(this@SignUpActivity) { state ->
+                when (state) {
+                    is RegisterState.Success -> {
+                        val thumbnail: MultipartBody.Part? = thumbnailMultipart.value
+
+                        // If the thumbnail has been registered, then update the user's thumbnail
+                        if (thumbnail != null) {
+                            patchUserThumbnail()
+                        }
+                        // If the thumbnail is not registered, then go to the main screen
+                        else {
+                            goToMainActivity()
+                        }
+                    }
+                    else -> {}
+                }
+            }
+
         }
+    }
+
+    private fun goToMainActivity() {
+        startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
+        finishAffinity()
     }
 
     companion object {

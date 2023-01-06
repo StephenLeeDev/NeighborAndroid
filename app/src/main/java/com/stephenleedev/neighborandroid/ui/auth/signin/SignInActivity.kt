@@ -23,6 +23,9 @@ class SignInActivity : AppCompatActivity() {
 
     private val socialAuthViewModel: SocialAuthViewModel by viewModels()
 
+    private var socialType: String = ""
+    private var socialToken: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -49,7 +52,10 @@ class SignInActivity : AppCompatActivity() {
                     finish()
                 }
                 is SocialAuthState.None -> {
-                    startActivity(Intent(this@SignInActivity, SignUpActivity::class.java))
+                    startActivity(Intent(this@SignInActivity, SignUpActivity::class.java).apply {
+                        putExtra(SOCIAL_TYPE, socialType)
+                        putExtra(SOCIAL_TOKEN, socialToken)
+                    })
                 }
                 else -> {}
             }
@@ -82,15 +88,23 @@ class SignInActivity : AppCompatActivity() {
                     logFunctions("성공 : $user")
                     logFunctions("token : $token")
 
+                    socialType = SocialType.KAKAO.type
+                    socialToken = token.accessToken
+
                     socialAuthViewModel.getIsSocialAccountExist(
                         body = SocialAuthRequest(
-                            socialToken = token.accessToken,
-                            socialType = SocialType.KAKAO.type
+                            socialType = SocialType.KAKAO.type,
+                            socialToken = token.accessToken
                         )
                     )
                 }
             }
         }
+    }
+
+    companion object {
+        const val SOCIAL_TYPE = "SOCIAL_TYPE"
+        const val SOCIAL_TOKEN = "SOCIAL_TOKEN"
     }
 
 }
