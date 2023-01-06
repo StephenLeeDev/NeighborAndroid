@@ -16,6 +16,7 @@ import com.stephenleedev.neighborandroid.domain.usecase.user.PatchUserThumbnailU
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 /**
@@ -168,6 +169,53 @@ class RegisterViewModel @Inject constructor(
                 .catch { setRegisterState(RegisterState.Fail) }
                 .collect { response ->
                     setRegisterState(RegisterState.Success(response))
+                }
+        }
+    }
+
+    /**
+     * Selected Thumbnail Picture Uri
+     */
+    private val _thumbnailUri = MutableLiveData<Uri>()
+    val thumbnailUri = _thumbnailUri as LiveData<Uri>
+
+    fun setThumbnailUri(uri: Uri) {
+        _thumbnailUri.value = uri
+    }
+
+    /**
+     * Selected Thumbnail Picture's Multipart
+     */
+    private val _thumbnailMultipart = MutableLiveData<MultipartBody.Part>()
+    val thumbnailMultipart = _thumbnailMultipart as LiveData<MultipartBody.Part>
+
+    fun setThumbnailMultipart(part: MultipartBody.Part) {
+        _thumbnailMultipart.value = part
+    }
+
+    /**
+     * Patch User Thumbnail State
+     */
+    private val _userThumbnailUpdateState = MutableLiveData<UserThumbnailUpdateState>(
+        UserThumbnailUpdateState.Loading)
+    val userThumbnailUpdateState = _userThumbnailUpdateState as LiveData<UserThumbnailUpdateState>
+
+    private fun setUserThumbnailUpdateState(value: UserThumbnailUpdateState) {
+        _userThumbnailUpdateState.value = value
+    }
+
+    fun patchUserThumbnail() {
+        val part = thumbnailMultipart.value ?: return
+
+        viewModelScope.launch {
+            patchUserThumbnailUseCase.execute(part = part)
+                .catch {
+                    setUserThumbnailUpdateState(UserThumbnailUpdateState.Fail)
+                }
+                .collect { response ->
+                    setUserThumbnailUpdateState(
+                        UserThumbnailUpdateState.Success(newThumbnailUri = response.newThumbnailUri)
+                    )
                 }
         }
     }

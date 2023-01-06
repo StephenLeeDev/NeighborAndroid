@@ -20,6 +20,7 @@ import com.stephenleedev.neighborandroid.util.file.FileUtil
 import com.stephenleedev.neighborandroid.util.viewpager.PagerFragmentStateAdapter
 import com.stephenleedev.neighborandroid.viewmodel.auth.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MultipartBody
 
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
@@ -135,6 +136,12 @@ class SignUpActivity : AppCompatActivity() {
                 checkIsValid()
             }
 
+            thumbnailUri.observe(this@SignUpActivity) { uri ->
+                setThumbnailMultipart(
+                    part = FileUtil().getMultipartFromUri(this@SignUpActivity, uri)
+                )
+            }
+
             nickname.observe(this@SignUpActivity) {
                 checkIsValid()
             }
@@ -159,6 +166,30 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     else -> {}
                 }
+            }
+
+            userThumbnailUpdateState.observe(this@SignUpActivity) { state ->
+                when (state) {
+                    is UserThumbnailUpdateState.Success -> {
+                        goToMainActivity()
+                    }
+                    is UserThumbnailUpdateState.Fail -> {
+                        /**
+                         * The Mocking API Service I am using is returning a 503 error unconditionally when trying to upload an image file.
+                         * I think it is caused by the limitations of the Mocking API Service itself, not the client's problem.
+                         * It seems to be unresolvable by the client.
+                         * Therefore, even if Fail() is returned, assume Success() and proceed to the next step.
+                         *
+                         * 현재 사용 중인 Mocking API Service가 이미지를 업로드하면, 무조건 503 에러를 반환하는 중.
+                         * 아마 클라이언트의 문제가 아닌, Mocking API Service 자체의 한계로 인해 발생하는 것으로 생각됨.
+                         * 클라이언트에서 해결 불가능한 것으로 보임.
+                         * 그러므로 Fail()가 반된되도 Success()라고 가정하고, 다음 프로세스 진행.
+                         */
+                        goToMainActivity()
+                    }
+                    else -> {}
+                }
+
             }
 
         }
