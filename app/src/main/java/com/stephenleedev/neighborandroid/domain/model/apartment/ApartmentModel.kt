@@ -15,4 +15,6 @@ data class ApartmentModel(
     val location: LocationModel,
     @SerializedName("name")
     val name: String
-)
+) {
+    var isSelected: Boolean = false
+}
