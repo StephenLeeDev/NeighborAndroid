@@ -32,4 +32,8 @@
     <string name="gallery">갤러리</string>
     <string name="camera">카메라</string>
 
+    <string name="map">지도</string>
+    <string name="chat">채팅</string>
+    <string name="my_info">내정보</string>
+
 </resources>
