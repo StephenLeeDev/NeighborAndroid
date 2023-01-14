@@ -1,11 +1,8 @@
 package com.stephenleedev.neighborandroid.util.permission
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
@@ -30,21 +27,6 @@ class PermissionUtil {
         }
 
         return permissionList
-    }
-
-    // A function that returns the result of whether all permissions have been granted
-    fun areAllPermissionsGranted(context: Context, permissionList: List<String>): Boolean {
-        var allGranted = true
-
-        permissionList.forEach {
-            if (ContextCompat.checkSelfPermission(
-                    context,
-                    it
-                ) != PackageManager.PERMISSION_GRANTED
-            ) allGranted = false
-        }
-
-        return allGranted
     }
 
     fun checkGrantStoragePermission(activity: AppCompatActivity, positiveListener: () -> Unit) {
@@ -77,25 +59,43 @@ class PermissionUtil {
             }).check()
     }
 
-    // A basic function to request grant permission
-    private fun checkPermission(
-        context: Context,
-        permissions: MutableList<String>,
-        positiveListener: () -> Unit,
-        negativeListener: () -> Unit,
-    ) {
-        Dexter.withContext(context)
+    // Permission list that necessary to access location
+    private fun getLocationPermissionList(): List<String> {
+        val permissionList = arrayListOf<String>()
+        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+
+        return permissionList
+    }
+
+    fun checkGrantLocationPermission(activity: AppCompatActivity, positiveListener: () -> Unit) {
+        val permissions = getLocationPermissionList()
+
+        Dexter.withContext(activity)
             .withPermissions(permissions)
             .withListener(object : BaseMultiplePermissionsListener() {
-                override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
-                    if (!multiplePermissionsReport.areAllPermissionsGranted()) {
-                        negativeListener()
-                    } else {
-                        positiveListener()
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    report?.let {
+                        if (!report.areAllPermissionsGranted()) {
+                            BaseDialog(
+                                content = activity.getString(R.string.allow_location_permission_warning_message),
+                                buttonPositiveContent = activity.getString(R.string.allow_permission),
+                                buttonCancelContent = activity.getString(R.string.close),
+                                onPositiveClick =
+                                {
+                                    checkGrantLocationPermission(activity, positiveListener)
+                                    positiveListener()
+                                }
+                            ).apply {
+                                isCancelable = false
+                                show(activity.supportFragmentManager, null)
+                            }
+                        } else {
+                            positiveListener()
+                        }
                     }
                 }
-            })
-            .check()
+            }).check()
     }
 
 }
