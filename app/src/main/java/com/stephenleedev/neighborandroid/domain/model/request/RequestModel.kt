@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import com.stephenleedev.neighborandroid.domain.model.common.LocationModel
 import com.stephenleedev.neighborandroid.domain.model.user.UserModel
+import ted.gun0912.clustering.clustering.TedClusterItem
+import ted.gun0912.clustering.geometry.TedLatLng
 
 data class RequestModel(
     @SerializedName("address")
@@ -27,4 +29,10 @@ data class RequestModel(
     val updatedAt: String,
     @SerializedName("user")
     val userModel: UserModel
-)
+) : TedClusterItem {
+
+    override fun getTedLatLng(): TedLatLng {
+        return TedLatLng(location.latitude, location.longitude)
+    }
+
+}
