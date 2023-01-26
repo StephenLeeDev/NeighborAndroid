@@ -2,15 +2,16 @@ package com.stephenleedev.neighborandroid.ui.main.map
 
 import android.location.Location
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
@@ -21,14 +22,18 @@ import com.stephenleedev.neighborandroid.databinding.FragmentMapBinding
 import com.stephenleedev.neighborandroid.databinding.MapClusterBinding
 import com.stephenleedev.neighborandroid.databinding.MapMarkerSelectedBinding
 import com.stephenleedev.neighborandroid.databinding.MapMarkerUnselectedBinding
+import com.stephenleedev.neighborandroid.domain.`interface`.ClickListener
 import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
 import com.stephenleedev.neighborandroid.domain.model.request.get.RequestState
 import com.stephenleedev.neighborandroid.ui.main.MainActivity
+import com.stephenleedev.neighborandroid.ui.main.map.adapter.RequestAdapter
 import com.stephenleedev.neighborandroid.util.extension.toDp
 import com.stephenleedev.neighborandroid.util.logFunctions
 import com.stephenleedev.neighborandroid.util.permission.PermissionUtil
 import com.stephenleedev.neighborandroid.viewmodel.request.RequestViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ted.gun0912.clustering.clustering.Cluster
 import ted.gun0912.clustering.naver.TedNaverClustering
 
@@ -40,6 +45,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val markerUnselectedBinding by lazy { MapMarkerUnselectedBinding.inflate(layoutInflater) }
     private val markerSelectedBinding by lazy { MapMarkerSelectedBinding.inflate(layoutInflater) }
     private val clusterBinding by lazy { MapClusterBinding.inflate(layoutInflater) }
+
+    private lateinit var requestAdapter: RequestAdapter
 
     private lateinit var naverMap: NaverMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -62,7 +69,30 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
 
+        initViews()
         initObservers()
+    }
+
+    private fun initViews() {
+        settingBottomSheet()
+        settingRecyclerView()
+    }
+
+    private fun settingBottomSheet() {
+        BottomSheetBehavior.from(binding.bottomSheet.root).apply {
+            isFitToContents = false
+            halfExpandedRatio = 0.4f
+        }
+    }
+
+    private fun settingRecyclerView() {
+        requestAdapter = RequestAdapter(object : ClickListener<RequestModel> {
+            override fun onClick(t: RequestModel) {
+
+            }
+        })
+
+        binding.bottomSheet.recyclerView.adapter = requestAdapter
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -108,9 +138,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
          * 차선책으로 네이버 지도 로딩 1초 후에 카메라 위치 세팅을 하여 대응 (최초 실행 시 1번만)
          * 아래 처럼 1초 딜레이를 주고나서 상기 addOnCameraIdleListener를 통해 주변 모임을 다시 호출하여 정상적으로 클러스터링 UI 갱신되도록 조치
          */
-        Handler(Looper.getMainLooper()).postDelayed({
+
+        lifecycleScope.launch {
+            delay(2000)
             moveToCurrentLocation()
-        }, 1000)
+        }
     }
 
     private fun moveToCurrentLocation() {
