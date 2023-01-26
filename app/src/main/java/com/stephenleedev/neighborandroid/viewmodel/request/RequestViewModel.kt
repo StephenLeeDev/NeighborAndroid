@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
 import com.stephenleedev.neighborandroid.domain.model.request.get.RequestState
 import com.stephenleedev.neighborandroid.domain.usecase.request.GetRequestListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,6 +44,16 @@ class RequestViewModel @Inject constructor(
                     setRequestState(RequestState.Success(list))
                 }
         }
+    }
+
+    /**
+     * Selected request list
+     */
+    private val _selectedRequestList = MutableLiveData<List<RequestModel>>()
+    val selectedRequestList = _selectedRequestList as LiveData<List<RequestModel>>
+
+    fun setSelectedRequestList(value: List<RequestModel>) {
+        _selectedRequestList.value = value
     }
 
 }

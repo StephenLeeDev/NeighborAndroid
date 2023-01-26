@@ -180,10 +180,22 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initRequestObservers() {
-        requestViewModel.requestState.observe(viewLifecycleOwner) { state ->
-            if (state is RequestState.Success) {
-                updateMarker(state.list)
-                logFunctions("RequestList : ${state.list}")
+        requestViewModel.apply {
+
+            // Origin request list
+            requestState.observe(viewLifecycleOwner) { state ->
+                if (state is RequestState.Success) {
+                    updateMarker(state.list)
+                    setSelectedRequestList(state.list)
+
+                    logFunctions("RequestList : ${state.list}")
+                }
+            }
+
+            // Selected request list
+            selectedRequestList.observe(viewLifecycleOwner) { list ->
+                requestAdapter.submitList(list)
+                binding.bottomSheet.emptyTextView.isVisible = list.isEmpty()
             }
         }
     }
@@ -209,8 +221,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             .markerClickListener {
                 clearMarkers()
 
-                val list = listOf(it)
-                // TODO : setSelectedRequestList
+                requestViewModel.setSelectedRequestList(listOf(it))
 
                 this.markerList[it]?.apply {
                     icon = OverlayImage.fromView(
@@ -234,7 +245,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
             .clusterClickListener {
                 clearMarkers()
-                // TODO : setSelectedRequestList
+
+                requestViewModel.setSelectedRequestList(it.items.toMutableList())
+
                 logFunctions("clusterClickListener : ${it.items}")
 
                 clusterList[it]?.apply {
