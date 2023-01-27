@@ -9,7 +9,9 @@ import com.stephenleedev.neighborandroid.ui.main.chat.ChatFragment
 import com.stephenleedev.neighborandroid.ui.main.map.MapFragment
 import com.stephenleedev.neighborandroid.ui.main.myinfo.MyInfoFragment
 import com.stephenleedev.neighborandroid.viewmodel.navigation.NavigationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
