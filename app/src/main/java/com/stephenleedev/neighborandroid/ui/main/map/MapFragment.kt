@@ -1,5 +1,6 @@
 package com.stephenleedev.neighborandroid.ui.main.map
 
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.NaverMap
@@ -27,6 +29,7 @@ import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
 import com.stephenleedev.neighborandroid.domain.model.request.get.RequestState
 import com.stephenleedev.neighborandroid.ui.main.MainActivity
 import com.stephenleedev.neighborandroid.ui.main.map.adapter.RequestAdapter
+import com.stephenleedev.neighborandroid.ui.request.detail.RequestDetailActivity
 import com.stephenleedev.neighborandroid.util.extension.toDp
 import com.stephenleedev.neighborandroid.util.logFunctions
 import com.stephenleedev.neighborandroid.util.permission.PermissionUtil
@@ -89,6 +92,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         requestAdapter = RequestAdapter(object : ClickListener<RequestModel> {
             override fun onClick(t: RequestModel) {
 
+                // Open clicked request's detail screen
+                requireActivity().startActivity(
+                    Intent(requireActivity(), RequestDetailActivity::class.java).apply {
+                        putExtra(RequestModel::class.java.simpleName, Gson().toJson(t))
+                    }
+                )
             }
         })
 
