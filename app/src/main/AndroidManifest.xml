@@ -21,6 +21,10 @@
         android:theme="@style/Theme.NeighborAndroid"
         tools:targetApi="33">
         <activity
+            android:name=".ui.request.detail.RequestDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NeighborAndroid.WhiteStatusBar" />
+        <activity
             android:name=".ui.auth.signup.SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.NeighborAndroid.WhiteStatusBar" />
