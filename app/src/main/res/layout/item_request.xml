@@ -74,6 +74,21 @@
             tools:text="주소지 : 강원도 철원군 동송읍 이평리 금학정" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/priceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_282828"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="8dp"
+            android:text="@{model.getPriceStringAddedCommas}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addressTextView"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            tools:text="의뢰비 : 10,000원" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/createdAtTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -85,7 +100,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/addressTextView"
+            app:layout_constraintTop_toBottomOf="@+id/priceTextView"
             tools:text="등록일 : 2023.01.16" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

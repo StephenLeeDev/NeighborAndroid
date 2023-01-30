@@ -1,8 +1,12 @@
 package com.stephenleedev.neighborandroid.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.stephenleedev.neighborandroid.R
 import com.stephenleedev.neighborandroid.databinding.ActivityMainBinding
 import com.stephenleedev.neighborandroid.ui.main.chat.ChatFragment
@@ -22,12 +26,25 @@ class MainActivity : AppCompatActivity() {
     private val chatFragment = ChatFragment()
     private val myInfoFragment = MyInfoFragment()
 
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+
+                APPLY_TO_REQUEST_SUCCESSFULLY -> {
+                    // Move to chatting tab
+                    navigationViewModel.setNavigationTabState(NavigationTabItemType.NAVIGATION_CHAT.type)
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         initViews()
         initObservers()
+        initBroadcastReceiver()
     }
 
     private fun setUpBottomNavigation() {
@@ -65,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         navigationViewModel.navigationTabState.observe(this@MainActivity) {
             when (it) {
                 NavigationTabItemType.NAVIGATION_CHAT.type -> {
-                    moveToMyInfoFragment()
+                    moveToChatFragment()
                 }
             }
 
@@ -99,6 +116,16 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.menu.findItem(R.id.navigation_myinfo).isChecked = true
     }
 
+    private fun initBroadcastReceiver() {
+        val intentFilter = IntentFilter().apply {
+            addAction(APPLY_TO_REQUEST_SUCCESSFULLY)
+        }
+        registerReceiver(broadcastReceiver, intentFilter)
+    }
+
+    companion object {
+        const val APPLY_TO_REQUEST_SUCCESSFULLY = "APPLY_TO_REQUEST_SUCCESSFULLY"
+    }
 }
 
 enum class NavigationTabItemType(val type: String) {

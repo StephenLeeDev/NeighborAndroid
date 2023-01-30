@@ -14,4 +14,10 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun add_commas_to_int_and_return_by_string() {
+        assertEquals(123456789.addCommas, "123,456,789")
+    }
+
 }

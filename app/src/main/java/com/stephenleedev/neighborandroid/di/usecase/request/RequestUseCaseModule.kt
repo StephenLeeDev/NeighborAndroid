@@ -2,6 +2,7 @@ package com.stephenleedev.neighborandroid.di.usecase.request
 
 import com.stephenleedev.neighborandroid.domain.repository.request.RequestRepository
 import com.stephenleedev.neighborandroid.domain.usecase.request.GetRequestListUseCase
+import com.stephenleedev.neighborandroid.domain.usecase.request.PostApplyToRequestUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,12 @@ object RequestUseCaseModule {
     @Singleton
     fun provideGetRequestListUseCase(requestRepository: RequestRepository): GetRequestListUseCase {
         return GetRequestListUseCase(requestRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun providePostApplyToRequestUseCase(requestRepository: RequestRepository): PostApplyToRequestUseCase {
+        return PostApplyToRequestUseCase(requestRepository)
     }
 
 }
