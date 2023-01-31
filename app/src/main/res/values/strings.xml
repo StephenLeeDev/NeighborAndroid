@@ -41,4 +41,6 @@
     <string name="request_near_none">현재 내 주변에 요청이 없습니다</string>
     <string name="accepting_request">의뢰 수락하기</string>
 
+    <string name="none_chat_room_yet">아직 채팅방이 없습니다</string>
+
 </resources>
