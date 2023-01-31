@@ -40,7 +40,7 @@ class RequestApplyViewModel @Inject constructor(
                     setRequestApplyState(RequestApplyState.Fail)
                 }
                 .collect { response ->
-                    setRequestApplyState(RequestApplyState.Success(requestApplyResponse = response))
+                    setRequestApplyState(RequestApplyState.Success(requestApplicationModel = response))
                 }
         }
     }

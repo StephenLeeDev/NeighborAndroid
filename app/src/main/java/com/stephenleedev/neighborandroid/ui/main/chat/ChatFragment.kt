@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.gson.Gson
 import com.stephenleedev.neighborandroid.databinding.FragmentChatBinding
-import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplyResponse
+import com.stephenleedev.neighborandroid.domain.`interface`.ClickListener
+import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplicationModel
 import com.stephenleedev.neighborandroid.ui.main.MainActivity
 import com.stephenleedev.neighborandroid.util.logFunctions
 import com.stephenleedev.neighborandroid.viewmodel.chat.ChatRoomViewModel
@@ -29,13 +30,13 @@ class ChatFragment : Fragment() {
 
                 MainActivity.APPLY_TO_REQUEST_SUCCESSFULLY -> {
 
-                    val requestApplyResponse: RequestApplyResponse =
+                    val requestApplicationModel: RequestApplicationModel =
                         Gson().fromJson(
-                            intent.getStringExtra(RequestApplyResponse::class.java.simpleName),
-                            RequestApplyResponse::class.java
+                            intent.getStringExtra(RequestApplicationModel::class.java.simpleName),
+                            RequestApplicationModel::class.java
                         )
 
-                    chatRoomViewModel.addChatRoomToList(newItem = requestApplyResponse)
+                    chatRoomViewModel.addChatRoomToList(newItem = requestApplicationModel)
                 }
 
             }

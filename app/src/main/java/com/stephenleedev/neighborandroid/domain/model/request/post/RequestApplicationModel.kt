@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
 import com.stephenleedev.neighborandroid.domain.model.user.UserModel
 
-data class RequestApplyResponse(
+data class RequestApplicationModel(
     @SerializedName("client")
     @Expose
     val client: UserModel,
