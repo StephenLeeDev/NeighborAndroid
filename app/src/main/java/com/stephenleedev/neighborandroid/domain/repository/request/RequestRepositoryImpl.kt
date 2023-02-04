@@ -1,7 +1,7 @@
 package com.stephenleedev.neighborandroid.domain.repository.request
 
 import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
-import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplyResponse
+import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplicationModel
 import com.stephenleedev.neighborandroid.remote.service.request.RequestService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +23,7 @@ class RequestRepositoryImpl(private val requestService: RequestService) : Reques
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun postApplyToRequest(id: Int): Flow<RequestApplyResponse> {
+    override suspend fun postApplyToRequest(id: Int): Flow<RequestApplicationModel> {
         return flow {
             emit(requestService.postApplyToRequest(id = id))
         }.flowOn(Dispatchers.IO)

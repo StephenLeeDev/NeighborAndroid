@@ -13,7 +13,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.stephenleedev.neighborandroid.R
 import com.stephenleedev.neighborandroid.databinding.ActivityRequestDetailBinding
 import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
-import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplyResponse
+import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplicationModel
 import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplyState
 import com.stephenleedev.neighborandroid.ui.main.MainActivity.Companion.APPLY_TO_REQUEST_SUCCESSFULLY
 import com.stephenleedev.neighborandroid.viewmodel.request.RequestApplyViewModel
@@ -87,8 +87,8 @@ class RequestDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                     sendBroadcast(
                         Intent(APPLY_TO_REQUEST_SUCCESSFULLY)
                             .putExtra(
-                                RequestApplyResponse::class.java.simpleName,
-                                Gson().toJson(state.requestApplyResponse)))
+                                RequestApplicationModel::class.java.simpleName,
+                                Gson().toJson(state.requestApplicationModel)))
 
                     finish()
                 }

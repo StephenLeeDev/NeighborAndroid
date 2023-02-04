@@ -1,6 +1,5 @@
 package com.stephenleedev.neighborandroid.domain.model.request
 
-
 import com.google.gson.annotations.SerializedName
 import com.stephenleedev.neighborandroid.domain.model.auth.purpose.SignUpPurposeModel
 import com.stephenleedev.neighborandroid.domain.model.common.LocationModel
@@ -29,7 +28,8 @@ data class RequestModel(
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("user")
-    val userModel: UserModel
+    val userModel: UserModel,
+
 ) : TedClusterItem {
 
     override fun getTedLatLng(): TedLatLng {
@@ -37,7 +37,7 @@ data class RequestModel(
     }
 
     fun getPriceStringAddedCommas(): String {
-        return "${price.addCommas}원"
+        return "의뢰비 : ${price.addCommas}원"
     }
 
 }

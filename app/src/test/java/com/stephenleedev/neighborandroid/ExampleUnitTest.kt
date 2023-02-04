@@ -20,4 +20,10 @@ class ExampleUnitTest {
         assertEquals(123456789.addCommas, "123,456,789")
     }
 
+    @Test
+    fun test_getIntervalTimeByString_feature() {
+        val dateString: String = DateUtil().getIntervalTimeByString("2023-01-31T18:30:09.589")
+        assertEquals(dateString, "20분 전")
+    }
+
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplicationModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/thumbnailImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:loadImage="@{model.mapThumbnail}"
+            app:radius="@{10}"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{model.request.title}"
+            android:textColor="@color/black_282828"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/createdAtTextView"
+            app:layout_constraintStart_toEndOf="@id/thumbnailImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="약수터 물 대신 떠다주실 분" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/createdAtTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.lastMessage.getCreatedAtString}"
+            android:textColor="@color/gray_838383"
+            android:textSize="12sp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toTopOf="@id/titleTextView"
+            app:layout_constraintBottom_toBottomOf="@id/titleTextView"
+            tools:text="2023.01.31" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/messageTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{model.request.message}"
+            android:textColor="@color/black_282828"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="저희가 노부부라서 무거운 것을 들기가 어렵습니다. 대신 약수터에 가서 물 떠다주실 수 있으신 분 찾습니다" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
