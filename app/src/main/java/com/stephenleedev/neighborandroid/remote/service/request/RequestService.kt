@@ -1,7 +1,7 @@
 package com.stephenleedev.neighborandroid.remote.service.request
 
 import com.stephenleedev.neighborandroid.domain.model.request.RequestModel
-import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplyResponse
+import com.stephenleedev.neighborandroid.domain.model.request.post.RequestApplicationModel
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -30,9 +30,9 @@ interface RequestService {
      * Apply to request
      * 심부름 수락 요청
      */
-    @POST("/v3/5df5d3bf-343c-4f57-b81c-cf9dbcb3f452")
+    @POST("/v3/5544682a-c204-4afa-bb76-23bff2097c01")
     suspend fun postApplyToRequest(
         @Query("id") id: Int // Request Item's ID
-    ): RequestApplyResponse
+    ): RequestApplicationModel
 
 }

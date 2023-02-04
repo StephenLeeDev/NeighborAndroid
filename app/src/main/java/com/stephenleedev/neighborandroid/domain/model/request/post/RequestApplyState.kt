@@ -8,5 +8,5 @@ sealed class RequestApplyState {
     object Ready : RequestApplyState()
     object Loading : RequestApplyState()
     object Fail : RequestApplyState()
-    data class Success(val requestApplyResponse: RequestApplyResponse) : RequestApplyState()
+    data class Success(val requestApplicationModel: RequestApplicationModel) : RequestApplyState()
 }
